@@ -6,7 +6,7 @@
 
 ## 📋 Tentang Project
 
-Sistem peramalan jumlah pasien rumah sakit menggunakan **metode Trend Moment** untuk membantu rumah sakit dalam:
+Sistem peramalan jumlah pasien rumah sakit menggunakan **metode Trend Moment** untuk membantu rumah sakit dalam :
 
 - 📊 Perencanaan kapasitas ruangan
 - 👨‍⚕️ Pengaturan jadwal dokter dan perawat
