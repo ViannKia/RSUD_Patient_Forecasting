@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "nixpacksConfig": {
+      "phpVersion": "8.2",
+      "phpExtensions": ["gd", "zip", "mbstring", "exif"]
+    }
+  }
+}
