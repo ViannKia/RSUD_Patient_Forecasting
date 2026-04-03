@@ -10,7 +10,6 @@ use App\Http\Controllers\PenggunaController;
 use App\Models\RawatInap;
 use App\Models\RawatJalan;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +26,9 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', function () {
-    return "Dashboard berhasil diakses!";
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['isLogin', 'role:admin,user'])
+    ->name('dashboard');
 
 Route::get('/rawatinap', [RawatInapController::class, 'index']);
 Route::get('/rawatinap/tambah', [RawatInapController::class, 'create']);

@@ -45,13 +45,13 @@ class LoginController extends Controller
 
             // Redirect berdasarkan role
             if ($role === 'admin') {
-                return redirect('/dashboard');
+                return redirect()->route('dashboard')->with('success', 'Selamat Datang Admin');
             } elseif ($role === 'user') {
-                return redirect('/dashboard');
+                return redirect()->route('dashboard')->with('success', 'Selamat Datang Pengguna');
             } else {
-                Auth::logout();
+                Auth::logout(); // jika role tidak dikenal, logout
                 Cache::forget('user-is-online-' . Auth::id());
-                return redirect('/login');
+                return redirect()->route('login')->with('error', 'Role tidak dikenali');
             }
         } else {
             // Jika login gagal
