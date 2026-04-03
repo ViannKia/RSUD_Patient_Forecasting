@@ -32,16 +32,29 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            // Cek apakah benar login
-            if (Auth::check()) {
-                $request->session()->regenerate();
+            $request->session()->regenerate();
 
-                // Redirect langsung ke URL dashboard
-                return redirect('/dashboard');
+            // Ambil role user yang login
+            $role = Auth::user()->role;
+
+
+            // Simpan status online ke cache selama 5 menit
+            Cache::put('user-is-online-' . Auth::id(), true, now()->addMinutes(5));
+
+            logger('Set online: user-is-online-' . Auth::id());
+
+            // Redirect berdasarkan role
+            if ($role === 'admin') {
+                return redirect('https://google.com');
+            } elseif ($role === 'user') {
+                return redirect('https://google.com');
             } else {
-                return back()->with('error', 'Session gagal dibuat');
+                Auth::logout(); // jika role tidak dikenal, logout
+                Cache::forget('user-is-online-' . Auth::id());
+                return redirect('https://google.com');
             }
         } else {
+            // Jika login gagal
             return back()->with('error', 'Username atau Password salah');
         }
     }
