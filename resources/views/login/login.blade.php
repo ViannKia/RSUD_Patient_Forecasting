@@ -28,7 +28,7 @@
                         <a href="">ForecastMed</a>
                     </h1>
                     <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
-                    <form action="https://forecastmed.up.railway.app/login/login-proses" method="POST" enctype="multipart/form-data"
+                    <form action="/login/login-proses" method="POST" enctype="multipart/form-data"
                         data-parsley-validate>
                         @csrf
                         <div class="form-group position-relative has-icon-left mb-4">
