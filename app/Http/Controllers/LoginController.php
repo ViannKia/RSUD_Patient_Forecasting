@@ -45,13 +45,13 @@ class LoginController extends Controller
 
             // Redirect berdasarkan role
             if ($role === 'admin') {
-                return redirect('https://google.com');
+                return redirect('/dashboard');
             } elseif ($role === 'user') {
-                return redirect('https://google.com');
+                return redirect('/dashboard');
             } else {
-                Auth::logout(); // jika role tidak dikenal, logout
+                Auth::logout();
                 Cache::forget('user-is-online-' . Auth::id());
-                return redirect('https://google.com');
+                return redirect('/login');
             }
         } else {
             // Jika login gagal

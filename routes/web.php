@@ -28,7 +28,7 @@ Route::post('/login/login-proses', [LoginController::class, 'login_proses'])->na
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
-    return "Dashboard berhasil diakses! User: " . (Auth::check() ? Auth::user()->email : 'Tidak login');
+    return "Dashboard berhasil diakses!";
 });
 
 Route::get('/rawatinap', [RawatInapController::class, 'index']);
