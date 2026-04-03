@@ -18,11 +18,8 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-     public function boot(): void
+    public function boot(): void
     {
-        // PERBAIKI: Paksa Laravel untuk menggunakan HTTPS di production
-        if ($this->app->environment('production')) {
-            URL::forceScheme('https');
-        }
+        //
     }
 }
