@@ -28,13 +28,13 @@
                         <a href="">ForecastMed</a>
                     </h1>
                     <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
-                    <form action="/login/login-proses" method="POST" enctype="multipart/form-data"
-                        data-parsley-validate>
+                    <form action="{{ route('login-proses') }}" method="POST" data-parsley-validate>
                         @csrf
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text"
                                 class="form-control form-control-xl @error('email') is-invalid @enderror"
-                                placeholder="Username" name="email" id="email" data-parsley-required="true" autocomplete="off">
+                                placeholder="Username" name="email" id="email" data-parsley-required="true"
+                                autocomplete="off">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
