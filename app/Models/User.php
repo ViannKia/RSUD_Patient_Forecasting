@@ -27,7 +27,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Tambahkan这个方法
     public function getAuthPassword()
     {
         return $this->password;

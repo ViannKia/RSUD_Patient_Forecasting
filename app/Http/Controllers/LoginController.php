@@ -34,28 +34,24 @@ class LoginController extends Controller
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
 
-            // Ambil role user yang login
+            // KODE PENGETESAN: Langsung lempar ke dashboard tanpa cek role
+            // Jika ini berhasil, berarti masalahnya ada di tulisan "admin" di database kamu
+            return redirect()->route('dashboard')->with('success', 'Berhasil Tembus!');
+
+            /* Bagian ini dikomentari dulu sementara
             $role = Auth::user()->role;
-
-
-            // Simpan status online ke cache selama 5 menit
-            Cache::put('user-is-online-' . Auth::id(), true, now()->addMinutes(5));
-
-            logger('Set online: user-is-online-' . Auth::id());
-
-            // Redirect berdasarkan role
             if ($role === 'admin') {
                 return redirect()->route('dashboard')->with('success', 'Selamat Datang Admin');
             } elseif ($role === 'user') {
                 return redirect()->route('dashboard')->with('success', 'Selamat Datang Pengguna');
             } else {
-                Auth::logout(); // jika role tidak dikenal, logout
-                Cache::forget('user-is-online-' . Auth::id());
+                Auth::logout();
                 return redirect()->route('login')->with('error', 'Role tidak dikenali');
             }
+            */
         } else {
-            // Jika login gagal
-            return back()->with('error', 'Username atau Password salah');
+            // Jika login gagal (Password/Email salah)
+            return redirect()->route('login')->with('error', 'Username atau Password salah')->withInput();
         }
     }
 
