@@ -19,7 +19,13 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+{
+    // Paksa URL ke HTTPS
+    \Illuminate\Support\Facades\URL::forceScheme('https');
+
+    // Tambahkan ini agar Cookie Session aman di HTTPS Railway
+    if (config('app.env') !== 'local') {
+        \Illuminate\Support\Facades\URL::forceRootUrl(config('app.url'));
     }
+}
 }
