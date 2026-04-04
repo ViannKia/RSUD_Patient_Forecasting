@@ -16,47 +16,21 @@ class LoginController extends Controller
 
     public function login_proses(Request $request)
     {
-        // Validasi input
-        Session::flash('email', $request->email);
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ], [
-            'email.required' => 'Email Wajib Diisi',
-            'password.required' => 'Password Wajib Diisi'
-        ]);
+        // 1. Ambil input email dan password
+        $credentials = $request->only('email', 'password');
 
-        $data = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-
-        if (Auth::attempt($data)) {
+        // 2. Gunakan Auth::attempt (Ini akan otomatis mengecek Bcrypt yang ada di foto tadi)
+        if (\Illuminate\Support\Facades\Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            // Ambil role user yang login
-            $role = Auth::user()->role;
-
-
-            // Simpan status online ke cache selama 5 menit
-            Cache::put('user-is-online-' . Auth::id(), true, now()->addMinutes(5));
-
-            logger('Set online: user-is-online-' . Auth::id());
-
-            // Redirect berdasarkan role
-            if ($role === 'admin') {
-                return redirect()->route('dashboard')->with('success', 'Selamat Datang Admin');
-            } elseif ($role === 'user') {
-                return redirect()->route('dashboard')->with('success', 'Selamat Datang Pengguna');
-            } else {
-                Auth::logout(); // jika role tidak dikenal, logout
-                Cache::forget('user-is-online-' . Auth::id());
-                return redirect()->route('login')->with('error', 'Role tidak dikenali');
-            }
-        } else {
-            // Jika login gagal
-            return back()->with('error', 'Username atau Password salah');
+            return redirect()->intended('/dashboard');
         }
+
+        // 3. Jika gagal, kasih dd() sebentar buat cek kenapa
+        dd([
+            "Pesan" => "Auth::attempt GAGAL",
+            "Email Input" => $request->email,
+            "Cek User di DB" => \App\Models\User::where('email', $request->email)->first()
+        ]);
     }
 
     public function logout(Request $request)
