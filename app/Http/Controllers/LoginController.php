@@ -16,33 +16,22 @@ class LoginController extends Controller
 
     public function login_proses(Request $request)
     {
-        // 1. Cek apakah data sampai ke Controller
+        // 1. Cari user berdasarkan email
         $user = \App\Models\User::where('email', $request->email)->first();
 
-        if (!$user) {
-            dd("ERROR: Email " . $request->email . " TIDAK DITEMUKAN di tabel tb_login Railway!");
+        // 2. Cek apakah user ada DAN password MD5-nya cocok
+        if ($user && md5($request->password) === $user->password) {
+
+            // 3. Login-kan user secara manual ke sistem Laravel
+            \Illuminate\Support\Facades\Auth::login($user);
+            $request->session()->regenerate();
+
+            // 4. Langsung lempar ke dashboard
+            return redirect()->route('dashboard');
         }
 
-        // 2. Cek apakah password cocok dengan Hash di DB
-        $isPasswordCorrect = \Illuminate\Support\Facades\Hash::check($request->password, $user->password);
-
-        if (!$isPasswordCorrect) {
-            dd([
-                "Pesan" => "Password SALAH!",
-                "Password Input" => $request->password,
-                "Hash di Database" => $user->password,
-                "Panjang Hash" => strlen($user->password)
-            ]);
-        }
-
-        // 3. Jika Password Benar, Cek Auth Manual
-        \Illuminate\Support\Facades\Auth::login($user);
-
-        if (\Illuminate\Support\Facades\Auth::check()) {
-            dd("LOGIN BERHASIL! User ID: " . \Illuminate\Support\Facades\Auth::id() . ". Jika kamu melihat pesan ini, berarti masalahnya ada di REDIRECT DASHBOARD kamu.");
-        }
-
-        dd("ERROR ANEH: Auth::login jalan tapi Auth::check tetap false. Cek SESSION_DRIVER kamu.");
+        // Jika gagal
+        return back()->with('error', 'Username atau Password salah')->withInput();
     }
 
     public function logout(Request $request)
