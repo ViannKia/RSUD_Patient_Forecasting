@@ -28,6 +28,11 @@
                         <a href="">ForecastMed</a>
                     </h1>
                     <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                    @if ($errors->any())
+                        <div style="background: red; color: white; padding: 10px;">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <form action="{{ route('login-proses') }}" method="POST" data-parsley-validate>
                         @csrf
                         <div class="form-group position-relative has-icon-left mb-4">
