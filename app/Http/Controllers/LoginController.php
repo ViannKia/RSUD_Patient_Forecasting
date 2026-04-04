@@ -16,43 +16,33 @@ class LoginController extends Controller
 
     public function login_proses(Request $request)
     {
-        // Validasi input
-        Session::flash('email', $request->email);
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ], [
-            'email.required' => 'Email Wajib Diisi',
-            'password.required' => 'Password Wajib Diisi'
-        ]);
+        // 1. Cek apakah data sampai ke Controller
+        $user = \App\Models\User::where('email', $request->email)->first();
 
-        $data = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-
-        if (Auth::attempt($data)) {
-            $request->session()->regenerate();
-
-            // KODE PENGETESAN: Langsung lempar ke dashboard tanpa cek role
-            // Jika ini berhasil, berarti masalahnya ada di tulisan "admin" di database kamu
-            return redirect()->route('dashboard')->with('success', 'Berhasil Tembus!');
-
-            /* Bagian ini dikomentari dulu sementara
-            $role = Auth::user()->role;
-            if ($role === 'admin') {
-                return redirect()->route('dashboard')->with('success', 'Selamat Datang Admin');
-            } elseif ($role === 'user') {
-                return redirect()->route('dashboard')->with('success', 'Selamat Datang Pengguna');
-            } else {
-                Auth::logout();
-                return redirect()->route('login')->with('error', 'Role tidak dikenali');
-            }
-            */
-        } else {
-            // Jika login gagal (Password/Email salah)
-            return redirect()->route('login')->with('error', 'Username atau Password salah')->withInput();
+        if (!$user) {
+            dd("ERROR: Email " . $request->email . " TIDAK DITEMUKAN di tabel tb_login Railway!");
         }
+
+        // 2. Cek apakah password cocok dengan Hash di DB
+        $isPasswordCorrect = \Illuminate\Support\Facades\Hash::check($request->password, $user->password);
+
+        if (!$isPasswordCorrect) {
+            dd([
+                "Pesan" => "Password SALAH!",
+                "Password Input" => $request->password,
+                "Hash di Database" => $user->password,
+                "Panjang Hash" => strlen($user->password)
+            ]);
+        }
+
+        // 3. Jika Password Benar, Cek Auth Manual
+        \Illuminate\Support\Facades\Auth::login($user);
+
+        if (\Illuminate\Support\Facades\Auth::check()) {
+            dd("LOGIN BERHASIL! User ID: " . \Illuminate\Support\Facades\Auth::id() . ". Jika kamu melihat pesan ini, berarti masalahnya ada di REDIRECT DASHBOARD kamu.");
+        }
+
+        dd("ERROR ANEH: Auth::login jalan tapi Auth::check tetap false. Cek SESSION_DRIVER kamu.");
     }
 
     public function logout(Request $request)
