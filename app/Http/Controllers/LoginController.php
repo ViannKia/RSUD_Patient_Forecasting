@@ -16,22 +16,47 @@ class LoginController extends Controller
 
     public function login_proses(Request $request)
     {
-        // 1. Cari user berdasarkan email
-        $user = \App\Models\User::where('email', $request->email)->first();
+        // Validasi input
+        Session::flash('email', $request->email);
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ], [
+            'email.required' => 'Email Wajib Diisi',
+            'password.required' => 'Password Wajib Diisi'
+        ]);
 
-        // 2. Cek apakah user ada DAN password MD5-nya cocok
-        if ($user && md5($request->password) === $user->password) {
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
 
-            // 3. Login-kan user secara manual ke sistem Laravel
-            \Illuminate\Support\Facades\Auth::login($user);
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
 
-            // 4. Langsung lempar ke dashboard
-            return redirect()->route('dashboard');
-        }
+            // Ambil role user yang login
+            $role = Auth::user()->role;
 
-        // Jika gagal
-        return back()->with('error', 'Username atau Password salah')->withInput();
+
+            // Simpan status online ke cache selama 5 menit
+            Cache::put('user-is-online-' . Auth::id(), true, now()->addMinutes(5));
+
+            logger('Set online: user-is-online-' . Auth::id());
+
+            // Redirect berdasarkan role
+            if ($role === 'admin') {
+                return redirect()->route('dashboard')->with('success', 'Selamat Datang Admin');
+            } elseif ($role === 'user') {
+                return redirect()->route('dashboard')->with('success', 'Selamat Datang Pengguna');
+            } else {
+                Auth::logout(); // jika role tidak dikenal, logout
+                Cache::forget('user-is-online-' . Auth::id());
+                return redirect()->route('login')->with('error', 'Role tidak dikenali');
+            }
+        } else {
+            // Jika login gagal
+            return back()->with('error', 'Username atau Password salah');
+        }
     }
 
     public function logout(Request $request)
