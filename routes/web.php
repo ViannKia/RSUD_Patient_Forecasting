@@ -26,8 +26,9 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Hapus bagian ->middleware(['isLogin', ...])
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['isLogin', 'role:admin,user'])
+    ->name('dashboard');
 
 Route::get('/rawatinap', [RawatInapController::class, 'index']);
 Route::get('/rawatinap/tambah', [RawatInapController::class, 'create']);
@@ -44,6 +45,10 @@ Route::get('/rawatjalan/edit/{id}', [RawatJalanController::class, 'edit']);
 Route::put('/rawatjalan/update/{id}', [RawatJalanController::class, 'update']);
 Route::post('/rawatjalan/import', [RawatJalanController::class, 'import']);
 Route::get('/rawatjalan/hapus/{id}', [RawatJalanController::class, 'hapus']);
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
+Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::get('forecasting', [ForecastingController::class, 'index'])->name('forecasting');
 Route::post('/forecasting', [ForecastingController::class, 'trendMoment'])->name('tmforecasting');

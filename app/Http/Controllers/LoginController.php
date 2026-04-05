@@ -16,17 +16,47 @@ class LoginController extends Controller
 
     public function login_proses(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        // Validasi input
+        Session::flash('email', $request->email);
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ], [
+            'email.required' => 'Email Wajib Diisi',
+            'password.required' => 'Password Wajib Diisi'
+        ]);
 
-        if (\Illuminate\Support\Facades\Auth::attempt($credentials)) {
-            // Ini perintah untuk membuatkan "KTP" Session baru
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
 
-            // Paksa redirect ke URL dashboard
-            return redirect()->to('/dashboard');
-        }
+            // Ambil role user yang login
+            $role = Auth::user()->role;
 
-        return back()->with('error', 'Login Gagal');
+
+            // Simpan status online ke cache selama 5 menit
+            Cache::put('user-is-online-' . Auth::id(), true, now()->addMinutes(5));
+
+            logger('Set online: user-is-online-' . Auth::id());
+
+            // Redirect berdasarkan role
+            if ($role === 'admin') {
+                return redirect()->route('dashboard')->with('success', 'Selamat Datang Admin');
+            } elseif ($role === 'user') {
+                return redirect()->route('dashboard')->with('success', 'Selamat Datang Pengguna');
+            } else {
+                Auth::logout(); // jika role tidak dikenal, logout
+                Cache::forget('user-is-online-' . Auth::id());
+                return redirect()->route('login')->with('error', 'Role tidak dikenali');
+            }
+        } else {
+            // Jika login gagal
+            return back()->with('error', 'Username atau Password salah');
+        }
     }
 
     public function logout(Request $request)
