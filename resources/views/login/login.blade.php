@@ -59,7 +59,7 @@
                         <div class="mt-4 text-center">
                             <p class="text-muted">
                                 <small>Demo Account:</small><br>
-                                <strong>admin123@gmail.com</strong> | <strong>password</strong>
+                                <strong>demo@gmail.com</strong> | <strong>akundemo</strong>
                             </p>
                         </div>
                     </form>
