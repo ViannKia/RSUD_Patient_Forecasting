@@ -3,6 +3,10 @@
 ![Laravel](https://img.shields.io/badge/Laravel-11.x-red?logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue?logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)
+![jQuery](https://img.shields.io/badge/jQuery-3.6-lightblue?logo=jquery)
+![Excel Import](https://img.shields.io/badge/Excel_Import-Dropzone-blueviolet)
+![ApexCharts](https://img.shields.io/badge/ApexCharts-3.x-FF6384?logo=apexcharts)
 
 ## 📋 Tentang Project
 
@@ -28,8 +32,8 @@ Sistem peramalan jumlah pasien rumah sakit menggunakan **metode Trend Moment** u
 |----------|-----------|
 | **Backend** | Laravel 11, PHP 8.2 |
 | **Database** | MySQL 8.0 |
-| **Frontend** | Blade, TailwindCSS, JavaScript |
-| **Library** | Chart.js, Laravel Excel, Spatie Permission |
+| **Frontend** | Blade, Bootstrap 5, JavaScript |
+| **Library** | ApexCharts, SweetAlert2, ParsleyJS, Dropzone, DataTables |
 
 ## 🚀 Cara Menjalankan
 
