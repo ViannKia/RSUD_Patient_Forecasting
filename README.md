@@ -4,9 +4,6 @@
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue?logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)
-![jQuery](https://img.shields.io/badge/jQuery-3.6-lightblue?logo=jquery)
-![Excel Import](https://img.shields.io/badge/Excel_Import-Dropzone-blueviolet)
-![ApexCharts](https://img.shields.io/badge/ApexCharts-3.x-FF6384?logo=apexcharts)
 
 ## 📋 Tentang Project
 
@@ -53,7 +50,20 @@ copy .env.example .env
 # Generate key
 php artisan key:generate
 
-# Setup database (edit .env dulu)
+# SETUP DATABASE (XAMPP / phpMyAdmin) 
+  1. Jalankan XAMPP, nyalakan Apache & MySQL
+  2. Buka http://localhost/phpmyadmin
+  3. Buat database baru (contoh: db_forecasting)
+  4. Buka file .env, sesuaikan konfigurasi database:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_forecasting
+DB_USERNAME=root
+DB_PASSWORD=
+
+# 5. Jalankan migrasi & seeder
 php artisan migrate --seed
 
 # Jalankan server
