@@ -16,7 +16,6 @@
 </head>
 
 <body data-error-message="{{ session('error') }}">
-    <script src="assets/static/js/initTheme.js"></script>
     <div id="auth">
         <div class="row h-100">
             <div class="col-lg-5 col-12">

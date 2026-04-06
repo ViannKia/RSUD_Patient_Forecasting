@@ -12,7 +12,6 @@
     <link rel="shortcut icon" href="data:image/png;base64,...(panjang, tidak perlu potong)...=" type="image/png">
     <link rel="stylesheet" crossorigin="" href="./assets/compiled/css/iconly.css">
     <link rel="stylesheet" href="./assets/compiled/css/app.css" media="(prefers-color-scheme: light)">
-    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" media="(prefers-color-scheme: dark)">
     <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" rel="stylesheet" />
