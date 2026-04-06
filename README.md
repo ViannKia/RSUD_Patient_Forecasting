@@ -1,4 +1,4 @@
-# 🏥 RSUD Patient Forecasting System
+# 🏥 SISTEM PERAMALAN JUMLAH PASIEN RUMAH SAKIT
 
 ![Laravel](https://img.shields.io/badge/Laravel-11.x-red?logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue?logo=php)
