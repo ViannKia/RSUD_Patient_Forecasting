@@ -88,7 +88,6 @@
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 {{-- <script src="{{ asset('assets/extensions/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-<script src="assets/static/js/components/dark.js"></script>
 <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/compiled/js/app.js"></script>
 <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
