@@ -1,6 +1,6 @@
 # 🏥 SISTEM PERAMALAN JUMLAH PASIEN RUMAH SAKIT
 
-![Laravel](https://img.shields.io/badge/Laravel-11.x-red?logo=laravel)
+![Laravel](https://img.shields.io/badge/Laravel-10.x-red?logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue?logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)
