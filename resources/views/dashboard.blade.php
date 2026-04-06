@@ -10,6 +10,59 @@
             padding: 0;
         }
     </style>
+    <style>
+        .row,
+        .card {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ========== RESPONSIVE DASHBOARD ========== */
+
+        /* Tablet & HP - Card tetap 2x2 */
+        @media screen and (max-width: 768px) {
+
+            /* Card statistik 2 kolom */
+            .col-6.col-lg-3.col-md-6 {
+                width: 50% !important;
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+                margin-bottom: 1rem;
+            }
+
+            .card-body {
+                padding: 0.5rem !important;
+            }
+
+            .stats-icon {
+                width: 2rem !important;
+                height: 2rem !important;
+            }
+
+            .stats-icon i {
+                font-size: 1rem !important;
+            }
+
+            .card-body h6.text-muted {
+                font-size: 0.65rem !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            .card-body .font-extrabold {
+                font-size: 0.8rem !important;
+            }
+
+            /* Tambahan untuk grafik */
+            .card:last-child .card-body {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            #chart-tahunan {
+                min-width: 500px;
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -143,11 +196,15 @@
                 chart: {
                     type: 'bar',
                     height: 350,
+                    width: '100%',
+                    toolbar: {
+                        show: true
+                    }
                 },
                 plotOptions: {
                     bar: {
                         horizontal: false,
-                        columnWidth: '80%',
+                        columnWidth: '70%',
                         borderRadius: 3,
                         borderRadiusApplication: 'end'
                     },
@@ -177,7 +234,7 @@
                 },
                 fill: {
                     opacity: 1
-                },
+                }
             };
 
             var chart = new ApexCharts(document.querySelector("#chart-tahunan"), options);

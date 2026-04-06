@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Login Page</title>
     <link rel="shortcut icon" href="{{ asset('assets/compiled/png/letter-s.png') }}" type="image/x-icon">
 
@@ -13,6 +13,142 @@
     <!-- Default -->
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/auth.css') }}">
+
+    <style>
+        #auth {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .row.h-100 {
+            width: 100%;
+            margin: 0;
+        }
+
+        /* Title utama - ForecastMed (DITAMBAHKAN) */
+        .auth-title {
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .auth-title a {
+            text-decoration: none !important;
+            color: #435ebe !important;
+        }
+
+        .auth-subtitle {
+            font-size: 1rem !important;
+            color: #6c757d !important;
+            margin-bottom: 2rem !important;
+        }
+
+        /* Tablet (768px ke bawah) */
+        @media screen and (max-width: 768px) {
+            #auth {
+                padding: 1rem;
+            }
+
+            #auth-left {
+                padding: 1.5rem;
+            }
+
+            .auth-title {
+                font-size: 2rem !important;
+                /* DIUBAH */
+            }
+
+            .auth-subtitle {
+                font-size: 0.95rem !important;
+                /* DIUBAH */
+            }
+
+            .form-control-xl {
+                font-size: 0.9rem;
+                padding: 0.7rem 1rem;
+            }
+
+            .btn-block {
+                padding: 0.7rem 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* HP (576px ke bawah) - CUKUP INI SAJA */
+        @media screen and (max-width: 576px) {
+            #auth {
+                padding: 1rem;
+                padding-top: 4rem;
+            }
+
+            .row {
+                flex-direction: column !important;
+            }
+
+            .col-lg-5,
+            .col-lg-7 {
+                width: 100% !important;
+            }
+
+            .auth-title,
+            .auth-title a {
+                font-size: 1.8rem !important;
+                text-align: center !important;
+            }
+
+            .auth-subtitle {
+                font-size: 0.9rem !important;
+                text-align: center !important;
+            }
+
+            .form-control-xl {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
+                padding-left: 2.5rem;
+            }
+
+            .btn-block {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .col-lg-7 {
+                order: 2;
+                margin: 1rem 0;
+            }
+
+            .col-lg-7 img {
+                width: 50% !important;
+                max-width: 200px !important;
+            }
+        }
+
+        /* Landscape mode HP */
+        @media screen and (max-width: 768px) and (orientation: landscape) {
+            .row {
+                flex-direction: row !important;
+            }
+
+            .col-lg-5 {
+                width: 50% !important;
+            }
+
+            .col-lg-7 {
+                width: 50% !important;
+            }
+
+            .col-lg-7 img {
+                width: 80% !important;
+            }
+
+            .auth-title {
+                font-size: 1.5rem !important;
+                /* DIUBAH */
+            }
+        }
+    </style>
 </head>
 
 <body data-error-message="{{ session('error') }}">
@@ -65,8 +201,7 @@
             </div>
             <div class="col-lg-7 my-auto">
                 <div class="d-flex justify-content-center">
-                    <img class="img-fluid" width="80%" src="{{ asset('assets/compiled/png/login1.png') }}"
-                        alt="login1.png">
+                    <img class="img-fluid" src="{{ asset('assets/compiled/png/login1.png') }}" alt="login1.png">
                 </div>
             </div>
         </div>
