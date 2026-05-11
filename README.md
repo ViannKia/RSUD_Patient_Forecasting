@@ -1,103 +1,74 @@
-# 🥊 TradePunch - AI Trading Risk Analyzer
+# 🏥 SISTEM PERAMALAN JUMLAH PASIEN RUMAH SAKIT
 
-![Next.js](https://img.shields.io/badge/Next.js-14.x-black?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?logo=tailwindcss)
-![OpenRouter](https://img.shields.io/badge/OpenRouter-AI-orange?logo=openai)
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)
+![Laravel](https://img.shields.io/badge/Laravel-10.x-red?logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.2-blue?logo=php)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)
 
 ## 📋 Tentang Project
 
-**TradePunch** adalah aplikasi web berbasis AI yang membantu trader crypto untuk **stress-test rencana trading** sebelum mengeksekusi posisi riil. Tidak seperti chatbot biasa atau sinyal trading, TradePunch membalik peran AI menjadi **penguji kritis** yang memaksa trader mempertanyakan logika dan risiko mereka sendiri.
+Sistem peramalan jumlah pasien rumah sakit menggunakan **metode Trend Moment** untuk membantu rumah sakit dalam :
 
-### 🔥 Masalah yang Diselesaikan
-
-- ❌ Trader pemula sering terjebak FOMO (*Fear Of Missing Out*)
-- ❌ Keputusan trading didasari emosi, bukan logika
-- ❌ Tidak ada proses self-questioning sebelum eksekusi
-- ❌ Alat trading AI hanya memberi sinyal, bukan menguji logika
-
-### ✅ Solusi TradePunch
-
-- 🤖 **AI sebagai Interogator** — AI yang bertanya, bukan menjawab
-- 📊 **Verdict Dashboard** — Risk score (0-100) + Emotional Risk + Portfolio Match + Rekomendasi
-- ⚡ **Tanpa Sinyal Beli/Jual** — Hanya menguji logika, trader tetap pegang kendali
-- 🎯 **3-Step Progressive Questioning** — Pertanyaan makin tajam setiap jawaban
+- 📊 Perencanaan kapasitas ruangan
+- 👨‍⚕️ Pengaturan jadwal dokter dan perawat
+- 💊 Manajemen stok obat dan logistik
+- 📈 Optimalisasi sumber daya rumah sakit
 
 ## ✨ Fitur Utama
 
-| Fitur | Deskripsi |
-|-------|------------|
-| 🎯 **Trade Plan Input** | Input asset, entry price, target, stop loss |
-| 🧠 **AI Questioning (3x)** | AI memberikan 3 pertanyaan kritis progresif |
-| 📊 **Verdict Dashboard** | Risk score, emotional risk, portfolio match, best action |
-| 💰 **Live Price** | Harga real-time dari CoinGecko API |
-| ⚖️ **Risk/Reward Calculator** | Hitung otomatis rasio risk/reward |
-| 🔄 **Multi-Asset Support** | BTC, ETH, SOL, DOGE, + top 20 crypto |
+- 🔐 **Autentikasi Multi-User** (Admin, Staff)
+- 📅 **Input Data Pasien Bulanan** (rawat inap & rawat jalan)
+- 📈 **Visualisasi Data** dengan grafik interaktif
+- 🤖 **Prediksi Jumlah Pasien** menggunakan Trend Moment
+- 📊 **Dashboard Analisis** performa rumah sakit
+- 📑 **Laporan Excel/PDF** untuk manajemen
 
 ## 🛠️ Tech Stack
 
 | Kategori | Teknologi |
 |----------|-----------|
-| **Frontend** | Next.js 14 (App Router), TypeScript, Tailwind CSS |
-| **AI Engine** | OpenRouter API (Llama 3.3 70B / auto-select free model) |
-| **Price API** | CoinGecko API |
-| **Deployment** | Vercel |
-| **Icons & UI** | Tailwind CSS, React hooks |
+| **Backend** | Laravel 11, PHP 8.2 |
+| **Database** | MySQL 8.0 |
+| **Frontend** | Blade, Bootstrap 5, JavaScript |
+| **Library** | ApexCharts, SweetAlert2, ParsleyJS, Dropzone, DataTables |
 
-## 🎨 Branding Identity
-
-| Elemen | Deskripsi |
-|--------|-----------|
-| **Nama** | TradePunch — kombinasi "Trade" + "Punch" |
-| **Logo** | Dua sarung tinju merah saling berhadapan |
-| **Warna** | Dark gradient (#0a0a0f → #1a1a2e) + aksen merah (#ef4444) |
-| **Font** | Poppins (sans-serif, modern, readable) |
-| **Tagline** | "Let logic fight your emotions" |
-
-## 🚀 Cara Menjalankan (Local Development)
+## 🚀 Cara Menjalankan
 
 ```bash
 # Clone repository
-git clone https://github.com/ViannKia/TradePunch.git
+git clone https://github.com/ViannKia/RSUD_Patient_Forecasting.git
 
 # Masuk ke folder project
-cd TradePunch
+cd RSUD_Patient_Forecasting
 
 # Install dependensi
-npm install
+composer install
 
-# Buat file environment
-cp .env.example .env.local
+# Copy file environment
+copy .env.example .env
 
-# ISI .env.local dengan:
-# OPENROUTER_API_KEY=sk-or-v1-xxxxxxxxxxxxx
+# Generate key
+php artisan key:generate
 
-# Jalankan development server
-npm run dev
+# SETUP DATABASE (XAMPP / phpMyAdmin) 
+  1. Jalankan XAMPP, nyalakan Apache & MySQL
+  2. Buka http://localhost/phpmyadmin
+  3. Buat database baru (contoh: db_forecasting)
+  4. Buka file .env, sesuaikan konfigurasi database:
 
-```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_forecasting
+DB_USERNAME=root
+DB_PASSWORD=
 
-## 🔧 Environment Variables
+# 5. Jalankan migrasi & seeder
+php artisan migrate --seed
 
-| Variable | Keterangan | Wajib? |
-|----------|-------------|--------|
-| `OPENROUTER_API_KEY` | API key dari OpenRouter untuk mengakses AI model | ✅ Ya |
-| `OPENROUTER_API_URL` | Endpoint API OpenRouter (opsional, sudah default) | ❌ Tidak |
+# Jalankan server
+php artisan serve
 
-### Cara Mendapatkan API Key:
-
-1. Buka [OpenRouter](https://openrouter.ai/keys)
-2. Daftar akun gratis (via Google atau email)
-3. Klik **Create Key**
-4. Beri nama misal `TradePunch`
-5. Copy key yang dimulai dengan `sk-or-v1-...`
-
-### Contoh File `.env.local`:
-
-```env
-OPENROUTER_API_KEY=sk-or-v1-xxxxxxxxxxxxx
-OPENROUTER_API_URL=https://openrouter.ai/api/v1/chat/completions
 ```
 
 ## 👨‍💻 Author
@@ -109,4 +80,4 @@ OPENROUTER_API_URL=https://openrouter.ai/api/v1/chat/completions
 
 ## 📄 License
 
-MIT License - Copyright (c) 2026 Adrianus Vianto Eban Kia
+MIT License - Copyright (c) 2025 Adrianus Vianto Eban Kia
